@@ -4,11 +4,15 @@ import os
 
 from sklearn.metrics.pairwise import cosine_similarity
 
+import streamlit as st
+
 load_dotenv(override=True)
     
-openai_key = os.getenv("OPENAI_KEY")
+# openai_key = os.getenv("OPENAI_KEY")
 
-client = OpenAI(api_key=openai_key)
+# os.environ['OPENAI_API_KEY'] = st.secrets['OPENAI_API_KEY']
+
+client = OpenAI(api_key=st.secrets['OPENAI_API_KEY'])
 
 def make_embeddings(client, chunks):
     '''

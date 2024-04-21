@@ -5,15 +5,15 @@ from pinecone import Pinecone, ServerlessSpec
 import os
 from tqdm import tqdm
 
-from dotenv import load_dotenv
 import ast
-from openai import OpenAI
+import streamlit as st
+
 
 def upload_to_db(data):
     '''
     pinecone db host: https://coursera-2ct3vx8.svc.aped-4627-b74a.pinecone.io, name: coursera
     '''
-    pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
+    pc = Pinecone(api_key=st.secrets['PINECONE_API_KEY'])
     index = pc.Index("coursera")
     
     batch_size = 50

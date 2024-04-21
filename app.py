@@ -21,10 +21,11 @@ label2id, id2label = get_id_label_pair(data_path='data/words_df.csv')
 device = get_device()
 
 load_dotenv(override=True)
-openai_key = os.getenv("OPENAI_KEY")
-client = OpenAI(api_key=openai_key)
+# openai_key = os.getenv("OPENAI_KEY")
 
-pc = Pinecone(api_key=os.getenv("PINECONE_API_KEY"))
+client = OpenAI(api_key=st.secrets['OPENAI_API_KEY'])
+
+pc = Pinecone(api_key=st.secrets['PINECONE_API_KEY'])
 index = pc.Index("coursera")
 
 
