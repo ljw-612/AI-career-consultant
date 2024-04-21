@@ -1,12 +1,6 @@
-import numpy as np
-
 from dotenv import load_dotenv
-import numpy as np
 from openai import OpenAI
 import os
-from tqdm import tqdm
-from bs4 import BeautifulSoup
-import requests
 
 from sklearn.metrics.pairwise import cosine_similarity
 

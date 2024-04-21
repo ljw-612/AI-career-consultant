@@ -1,0 +1,13 @@
+PyPDF2
+streamlit
+pandas
+numpy
+openai
+python-dotenv
+pinecone-client
+torch
+transformers
+huggingface_hub
+beautifulsoup4
+requests
+scikit-learn

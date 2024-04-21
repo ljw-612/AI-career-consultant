@@ -1,10 +1,7 @@
 import pandas as pd
 import numpy as np
-from sklearn.metrics import accuracy_score
-import torch
-from torch.utils.data import Dataset, DataLoader
-from transformers import BertTokenizer, BertConfig, BertForTokenClassification
 
+import torch
 from transformers import AutoTokenizer, AutoModelForTokenClassification
 
 from torch import cuda
