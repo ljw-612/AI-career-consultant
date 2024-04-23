@@ -8,7 +8,7 @@ from script.inference import infer, load_model, get_id_label_pair, get_device
 from script.jd_extraction import get_webpage_text
 from script.match_skills import make_embeddings, make_meta_embedding, get_missing_skills
 
-from script.utils import read_uploaded_file, make_single_embedding
+from script.utils import read_uploaded_file, make_single_embedding, generate_df
 
 from dotenv import load_dotenv
 from openai import OpenAI
@@ -22,18 +22,27 @@ device = get_device()
 
 load_dotenv(override=True)
 # openai_key = os.getenv("OPENAI_KEY")
+# pinecone_key = os.getenv("PINECONE_API_KEY")
 
-client = OpenAI(api_key=st.secrets['OPENAI_API_KEY'])
+openai_key = st.secrets['OPENAI_API_KEY']
+pinecone_key = st.secrets['PINECONE_API_KEY']
 
-pc = Pinecone(api_key=st.secrets['PINECONE_API_KEY'])
+client = OpenAI(api_key=openai_key)
+pc = Pinecone(api_key=pinecone_key)
 index = pc.Index("coursera")
 
 
 
 if __name__ == '__main__':
     
-    uploaded_file = st.file_uploader("Choose a file")
-    url = st.text_input("Enter a webpage URL")
+    st.title("AI Career Consultant")
+    st.subheader("Missing skills in your resume for a job? We got you covered!")
+    st.write("🤖️" + " Upload your resume and enter the url of the job description")
+    st.write("🚀" + " We will identify the skills you are missing and suggest courses to learn them")
+    
+    
+    uploaded_file = st.file_uploader("Upload your resume: ")
+    url = st.text_input("Enter a job description URL")
     
     if uploaded_file is not None:
         pdf_text = read_uploaded_file(uploaded_file)
@@ -53,16 +62,22 @@ if __name__ == '__main__':
         meta_embedding_r = make_meta_embedding(make_embeddings(client=client, chunks=skills_r), skills_r)
         
         missing_skills = get_missing_skills(meta_embedding_j, meta_embedding_r)
-        st.write(missing_skills)
-        
-        missing_skills_str = ', '.join(missing_skills)
-        missing_skills_embedding = make_single_embedding(client, missing_skills_str)
-        
-        result = index.query(
-            vector=missing_skills_embedding,
-            top_k=5,
-            include_values=False,
-            include_metadata=True
-        )
-        st.write(result)
+        if missing_skills == []:
+            st.write("You have all the skills required for the job")
+        else:
+            missing_skills_str = ', '.join(missing_skills)
+            print("missing skills: ", missing_skills_str)
+            st.write("The skills that you don't have are -> ", missing_skills_str)
+            
+            missing_skills_embedding = make_single_embedding(client, missing_skills_str)
+            
+            result = index.query(
+                vector=missing_skills_embedding,
+                top_k=5,
+                include_values=False,
+                include_metadata=True
+            )
+            course_df = generate_df(result)
+            st.write("Coursera courses we recommend for you:")
+            st.write(course_df)
         

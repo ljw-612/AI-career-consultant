@@ -2,16 +2,14 @@ import pandas as pd
 import numpy as np
 
 import torch
-from transformers import AutoTokenizer, AutoModelForTokenClassification
-
 from torch import cuda
+from transformers import AutoTokenizer, AutoModelForTokenClassification
 
 from huggingface_hub import login
 import os
+from dotenv import load_dotenv
 
 import PyPDF2
-
-os.environ["HF_KEY"] = "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"
 
 def read_pdf_as_string(file_path):
     # Open the PDF file
@@ -118,12 +116,13 @@ def main():
 
 
 if __name__ == '__main__':
+    load_dotenv(override=True)
     
     device = get_device()
     print(device)
     
     login(
-        token=os.environ.get('HF_KEY'),
+        token=os.getenv("HF_KEY"),
         add_to_git_credential=True
         )
     main()
