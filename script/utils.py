@@ -25,6 +25,10 @@ def generate_df(result):
             df = pd.DataFrame(match['metadata'], index=[0])
         else:
             df = pd.concat([df, pd.DataFrame(match['metadata'], index=[len(df)])])
+    new_order = ['course_name', 'course_organization', 'course_rating',
+                 'course_Certificate_type', 'course_time', 'course_skills',
+                 'course_URL']
+    df = df.reindex(columns=new_order)
     return df
 
 if __name__ == '__main__':
