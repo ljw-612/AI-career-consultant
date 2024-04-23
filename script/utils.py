@@ -29,6 +29,13 @@ def generate_df(result):
                  'course_Certificate_type', 'course_time', 'course_skills',
                  'course_URL']
     df = df.reindex(columns=new_order)
+    df = df.rename(columns={'course_name': 'Course Name',
+                            'course_organization': 'Organization',
+                            'course_rating': 'Rating',
+                            'course_Certificate_type': 'Certificate Type',
+                            'course_time': 'Time',
+                            'course_skills': 'Skills',
+                            'course_URL': 'URL'})
     return df
 
 if __name__ == '__main__':
