@@ -15,8 +15,14 @@ from openai import OpenAI
 
 from pinecone import Pinecone, ServerlessSpec
 
-model_name = "Pot-l/bert-ner-skills"    
-tokenizer, model = load_model(model_name)
+
+@st.cache
+def load_model_st():
+    model_name = "Pot-l/bert-ner-skills"    
+    tokenizer, model = load_model(model_name)
+    return tokenizer, model
+
+tokenizer, model = load_model_st()
 # label2id, id2label = get_id_label_pair(data_path='data/words_df.csv')
 label2id = {'O': 0, 'B-Skill': 1, 'I-Skill': 2}; id2label = {0: 'O', 1: 'B-Skill', 2: 'I-Skill'}
 device = get_device()
