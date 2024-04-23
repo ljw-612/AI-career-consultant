@@ -28,16 +28,18 @@ pinecone_key = st.secrets['PINECONE_API_KEY']
 
 if __name__ == '__main__':
         
-    @st.cache
-    def load_model():
-        model_name = "Pot-l/bert-ner-skills"
-        tokenizer = AutoTokenizer.from_pretrained(model_name)
-        model = AutoModelForTokenClassification.from_pretrained(model_name)
-        return tokenizer, model
+    # @st.cache
+    # def load_model():
+    #     model_name = "Pot-l/bert-ner-skills"
+    #     tokenizer = AutoTokenizer.from_pretrained(model_name)
+    #     model = AutoModelForTokenClassification.from_pretrained(model_name)
+    #     return tokenizer, model
 
-    # model_name = "Pot-l/bert-ner-skills"    
+    model_name = "Pot-l/bert-ner-skills"
+    tokenizer = AutoTokenizer.from_pretrained(model_name)
+    model = AutoModelForTokenClassification.from_pretrained(model_name)
     # tokenizer, model = load_model(model_name)
-    tokenizer, model = load_model()
+    # tokenizer, model = load_model()
     # label2id, id2label = get_id_label_pair(data_path='data/words_df.csv')
     label2id = {'O': 0, 'B-Skill': 1, 'I-Skill': 2}; id2label = {0: 'O', 1: 'B-Skill', 2: 'I-Skill'}
     device = get_device()
