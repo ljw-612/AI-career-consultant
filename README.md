@@ -69,3 +69,10 @@ streamlit run app.py
 ```
 - online: go to the following link: https://ai-career-consultant.streamlit.app/
 
+### UI:
+![UI](./img/interface1.png)
+
+### Sample usecase:
+![psh](./img/user-psh.png)
+![ljw](./img/user-ljw.png)
+
