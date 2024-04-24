@@ -57,7 +57,7 @@ MAX_GRAD_NORM = 10
 **Trained Bert Model result**
 1. F1 score: 0.7
 2. Confusion Matrix:
-<img src="./img/model-result.png" alt="ljw" width="200"/>
+<img src="./img/model-result.png" alt="ljw" width="400"/>
 
 Considering the unbaised dataset for NER tasks, the model performance is acceptable.
 
@@ -70,9 +70,9 @@ streamlit run app.py
 - online: go to the following link: https://ai-career-consultant.streamlit.app/
 
 ### UI:
-<img src="./img/interface1.png" alt="ljw" width="200"/>
+<img src="./img/interface1.png" alt="ljw" width="500"/>
 
 ### Sample usecase:
-<img src="./img/user-psh.png" alt="ljw" width="200"/>
-<img src="./img/user-ljw.png" alt="ljw" width="200"/>
+<img src="./img/user-psh.png" alt="ljw" width="500"/>
+<img src="./img/user-ljw.png" alt="ljw" width="500"/>
 
