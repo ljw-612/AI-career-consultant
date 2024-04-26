@@ -3,6 +3,11 @@
 ## Purpose
 This project is going to help user get their dreamed jobs. Users are allowed to upload their resumes in pdf format as well as a job description link (url). The system would automatically detect the skills that the user is still missing for this job position and based on that, relevant Coursera courses would be recommended to the user.
 
+## Usage:
+I provide two ways using this service:
+- local: see the prepare section below to run the application locally
+- online: go to the following link: https://ai-career-consultant.streamlit.app/
+
 ## Prepare
 ### Environment Requirements
 - Python 3.8+
@@ -75,12 +80,7 @@ MAX_GRAD_NORM = 10
 Considering the unbaised dataset for NER tasks, the model performance is acceptable.
 
 ## User interface
-I provide two ways using this service:
-- local: go the the root folder and run the following command:
-```bash
-streamlit run app.py
-```
-- online: go to the following link: https://ai-career-consultant.streamlit.app/
+
 
 ### UI:
 <img src="./img/interface1.png" alt="ljw" width="500"/>
