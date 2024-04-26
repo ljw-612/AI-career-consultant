@@ -1,0 +1,1 @@
+The trained bert model can be found on: https://huggingface.co/Pot-l/bert-ner-skills

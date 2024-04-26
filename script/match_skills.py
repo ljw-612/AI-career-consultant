@@ -8,8 +8,10 @@ import streamlit as st
 
 load_dotenv(override=True)
     
-# openai_key = os.getenv("OPENAI_KEY")
-openai_key = st.secrets['OPENAI_API_KEY']
+try:
+    openai_key = st.secrets['OPENAI_API_KEY']
+except:
+    openai_key = os.getenv("OPENAI_KEY")
 
 client = OpenAI(api_key=openai_key)
 
@@ -17,7 +19,6 @@ def make_embeddings(client, chunks):
     '''
     This function creates embeddings for the chunks of text using the OpenAI API.
     '''
-    
     def _make_embedding(client, chunk, model="text-embedding-3-small"):
         chunk = chunk.replace("\n", " ")
         return client.embeddings.create(input = [chunk], model=model).data[0].embedding

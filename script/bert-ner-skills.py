@@ -10,8 +10,16 @@ from torch import cuda
 from huggingface_hub import login
 import os
 
+'''
+This file is used for bert model training
+Can be directly run in the terminal
+model will be pushed to hugging face: https://huggingface.co/Pot-l/bert-ner-skills
+'''
 
 class dataset(Dataset):
+    '''
+    The dataset class, padding and tokens are added to the input data
+    '''
     def __init__(self, dataframe, tokenizer, max_len):
         self.len = len(dataframe)
         self.data = dataframe
@@ -79,6 +87,7 @@ def tokenize_and_preserve_labels(sentence, text_labels, tokenizer):
 
     return tokenized_sentence, labels
 
+
 def load_data(MAX_LEN, TRAIN_BATCH_SIZE, VALID_BATCH_SIZE, tokenizer):
     data = pd.read_csv('../data/dataset.csv')
 
@@ -112,7 +121,10 @@ def load_data(MAX_LEN, TRAIN_BATCH_SIZE, VALID_BATCH_SIZE, tokenizer):
 
 
 def valid_loss(model, testing_loader):
-    # put model in evaluation mode
+    '''
+    This function calculates the validation loss
+    used for train/validation loss tracking
+    '''
     model.eval()
     
     eval_loss, eval_accuracy = 0, 0

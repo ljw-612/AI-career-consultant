@@ -11,6 +11,7 @@ import streamlit as st
 
 def upload_to_db(data):
     '''
+    This function upload the data after embedding to the pinecone db
     pinecone db host: https://coursera-2ct3vx8.svc.aped-4627-b74a.pinecone.io, name: coursera
     '''
     pc = Pinecone(api_key=st.secrets['PINECONE_API_KEY'])

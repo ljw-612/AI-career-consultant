@@ -26,15 +26,21 @@ def read_pdf_as_string(file_path):
         # Join all texts into a single string
         return '\n'.join(text)
 
+
 def get_id_label_pair(data_path='../data/words_df.csv'):
     worddf = pd.read_csv(data_path)
     label2id = {k: v for v, k in enumerate(worddf.Tag.unique())}
     id2label = {v: k for v, k in enumerate(worddf.Tag.unique())}
     return label2id, id2label
 
+
 def infer(pdf_text, tokenizer, model, label2id, id2label, device, MAX_LEN=128):
+    '''
+    This function allows user to input text and used the model to do inference on the text.
+    '''
     sentence = pdf_text
-    # divide pdf_text into sub sentences, length = 80
+    # divide pdf_text into sub sentences, this process is necessary 
+    # because the model can only process 512 tokens at a time
     sub_sentences = [sentence[i:i+300] for i in range(0, len(sentence), 300)]
 
     skills = []; meta_wp_preds = []
@@ -56,10 +62,7 @@ def infer(pdf_text, tokenizer, model, label2id, id2label, device, MAX_LEN=128):
         wp_preds = list(zip(tokens, token_predictions)) # list of tuples. Each tuple = (wordpiece, prediction)
 
         meta_wp_preds.extend(wp_preds)
-        
-        # for item in wp_preds:
-        #     if item[1] in ['B-Skill', 'I-Skill'] and item[0] not in ['[CLS]', '[SEP]', '[PAD]']:
-        #         skills.append(item[0])
+
     
     cleaned_preds = [t for t in meta_wp_preds if t[0] not in ['[CLS]', '[SEP]', '[PAD]']]
     data = cleaned_preds

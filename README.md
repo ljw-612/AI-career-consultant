@@ -44,12 +44,24 @@ streamlit run app.py
     - data can be find in the data folder: `data/coursera_courses.csv`
 
 ## Modeling Approach
+### Machine learning - SVM
+I use SVM to detect the skills. One-hot encoding on the words is done first and PCS was done afterwards to reduce the dimensionality. 
+
+<img src="./img/svm.png" alt="ljw" width="400"/>
+
+**Trained SVM result**
+1. F1 score: 0.06
+2. Confusion Matrix:
+
+<img src="./img/svmcm.png" alt="ljw" width="400"/>
+
+### Deep learning - BERT
 We use the Bert model to detect the skills inside resume texts. The model is trained on the resume data with the IOB format. Tokens such as [CLS] and [SEP] are added, padding is enabled. Model config:
 ```
 MAX_LEN = 512
 TRAIN_BATCH_SIZE = 4
 VALID_BATCH_SIZE = 2
-EPOCHS = 10
+EPOCHS = 6
 LEARNING_RATE = 1e-05
 MAX_GRAD_NORM = 10
 ```
@@ -57,6 +69,7 @@ MAX_GRAD_NORM = 10
 **Trained Bert Model result**
 1. F1 score: 0.7
 2. Confusion Matrix:
+
 <img src="./img/model-result.png" alt="ljw" width="400"/>
 
 Considering the unbaised dataset for NER tasks, the model performance is acceptable.
@@ -72,7 +85,10 @@ streamlit run app.py
 ### UI:
 <img src="./img/interface1.png" alt="ljw" width="500"/>
 
-### Sample usecase:
+### Sample usecases:
 <img src="./img/user-psh.png" alt="ljw" width="500"/>
 <img src="./img/user-ljw.png" alt="ljw" width="500"/>
+
+## Appendix:
+YouTube video: https://youtu.be/4_i_6WYygUw
 

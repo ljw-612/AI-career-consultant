@@ -19,28 +19,21 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification
 
 
 load_dotenv(override=True)
-# openai_key = os.getenv("OPENAI_KEY")
-# pinecone_key = os.getenv("PINECONE_API_KEY")
 
-openai_key = st.secrets['OPENAI_API_KEY']
-pinecone_key = st.secrets['PINECONE_API_KEY']
+try:
+    openai_key = st.secrets['OPENAI_API_KEY']
+    pinecone_key = st.secrets['PINECONE_API_KEY']
+except:
+    openai_key = os.getenv("OPENAI_KEY")
+    pinecone_key = os.getenv("PINECONE_API_KEY")
 
 
 if __name__ == '__main__':
-        
-    # @st.cache
-    # def load_model():
-    #     model_name = "Pot-l/bert-ner-skills"
-    #     tokenizer = AutoTokenizer.from_pretrained(model_name)
-    #     model = AutoModelForTokenClassification.from_pretrained(model_name)
-    #     return tokenizer, model
 
     model_name = "Pot-l/bert-ner-skills"
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForTokenClassification.from_pretrained(model_name)
-    # tokenizer, model = load_model(model_name)
-    # tokenizer, model = load_model()
-    # label2id, id2label = get_id_label_pair(data_path='data/words_df.csv')
+
     label2id = {'O': 0, 'B-Skill': 1, 'I-Skill': 2}; id2label = {0: 'O', 1: 'B-Skill', 2: 'I-Skill'}
     device = get_device()
 
@@ -60,13 +53,13 @@ if __name__ == '__main__':
     if uploaded_file is not None:
         pdf_text = read_uploaded_file(uploaded_file)
         data_r, skills_r = infer(pdf_text, tokenizer, model, label2id, id2label, device)
-        # st.write("resume skills: ", skills_r)
+
         print("resume skills: ", skills_r)
         
     if url:
         webpage_text = get_webpage_text(url)
         data_j, skills_j = infer(webpage_text, tokenizer, model, label2id, id2label, device)
-        # st.write("JD skills: ", skills_j)
+
         print("JD skills: ", skills_j)
     
     if uploaded_file is not None and url:
